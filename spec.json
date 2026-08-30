@@ -1022,7 +1022,17 @@
           }
         },
         "required": [
-          "name"
+          "cargoCapacity",
+          "consumables",
+          "costInCredits",
+          "crew",
+          "length",
+          "manufacturer",
+          "maxAtmospheringSpeed",
+          "model",
+          "name",
+          "passengers",
+          "vehicleClass"
         ]
       },
       "VehicleResponse": {
@@ -1141,7 +1151,7 @@
             "maxLength": 255,
             "minLength": 0
           },
-          "MGLT": {
+          "megalightPerHour": {
             "type": "string",
             "maxLength": 255,
             "minLength": 0
@@ -1158,7 +1168,19 @@
           }
         },
         "required": [
-          "name"
+          "cargoCapacity",
+          "consumables",
+          "costInCredits",
+          "crew",
+          "hyperdriveRating",
+          "length",
+          "manufacturer",
+          "maxAtmospheringSpeed",
+          "megalightPerHour",
+          "model",
+          "name",
+          "passengers",
+          "starshipClass"
         ]
       },
       "StarshipResponse": {
@@ -1198,7 +1220,7 @@
           "hyperdriveRating": {
             "type": "string"
           },
-          "MGLT": {
+          "megalightPerHour": {
             "type": "string"
           },
           "cargoCapacity": {
@@ -1285,7 +1307,15 @@
           }
         },
         "required": [
-          "name"
+          "averageHeight",
+          "averageLifespan",
+          "classification",
+          "designation",
+          "eyeColors",
+          "hairColors",
+          "language",
+          "name",
+          "skinColors"
         ]
       },
       "SpeciesResponse": {
@@ -1398,7 +1428,15 @@
           }
         },
         "required": [
-          "name"
+          "climate",
+          "diameter",
+          "gravity",
+          "name",
+          "orbitalPeriod",
+          "population",
+          "rotationPeriod",
+          "surfaceWater",
+          "terrain"
         ]
       },
       "PlanetResponse": {
@@ -1532,7 +1570,14 @@
           }
         },
         "required": [
-          "name"
+          "birthYear",
+          "eyeColor",
+          "gender",
+          "hairColor",
+          "height",
+          "mass",
+          "name",
+          "skinColor"
         ]
       },
       "PersonResponse": {
@@ -1678,6 +1723,9 @@
           }
         },
         "required": [
+          "director",
+          "openingCrawl",
+          "producer",
           "title"
         ]
       },
