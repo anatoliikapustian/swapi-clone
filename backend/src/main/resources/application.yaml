@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: swapi-clone-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/swapi-clone}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+  flyway:
+    enabled: true
+  data:
+    web:
+      pageable:
+        serialization-mode: via-dto
+
+server:
+  port: 8080
+  forward-headers-strategy: framework

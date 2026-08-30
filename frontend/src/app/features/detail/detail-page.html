@@ -1,0 +1,35 @@
+<a class="detail-page__back" routerLink="/{{ resource() }}">← Back to {{ catalog().label }}</a>
+
+@if (isNotFound()) {
+  <app-empty-state
+    title="Not found"
+    [detail]="'No ' + catalog().singularLabel.toLowerCase() + ' exists with id ' + id() + '.'"
+  />
+} @else if (problem()) {
+  <app-error-state [problem]="problem()" (retry)="retry()" />
+} @else if (itemState.isLoading() && !itemState.hasValue()) {
+  <div class="detail-page__skeleton" aria-busy="true" aria-label="Loading"></div>
+} @else if (itemState.hasValue()) {
+  <article>
+    <header class="detail-page__hero">
+      <span class="detail-page__badge">{{ catalog().singularLabel }}</span>
+      <h1 class="detail-page__title" [style.view-transition-name]="transitionName()">
+        {{ titleValue() | value }}
+      </h1>
+      <span class="detail-page__id">ID {{ idNum() }}</span>
+      <a class="detail-page__edit" routerLink="/{{ resource() }}/{{ idNum() }}/edit">Edit</a>
+    </header>
+
+    @if (catalog().hasOpeningCrawl) {
+      <app-opening-crawl [text]="crawlText()" />
+    }
+
+    <div class="detail-page__grid">
+      <app-field-grid [sections]="catalog().detailSections" [item]="itemState.value()!" />
+    </div>
+
+    <div class="detail-page__relations">
+      <app-relation-chips [relationFields]="catalog().relationFields" [item]="itemState.value()!" />
+    </div>
+  </article>
+}

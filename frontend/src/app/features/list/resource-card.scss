@@ -1,0 +1,85 @@
+@use '../../../styles/mixins';
+
+.resource-card {
+  @include mixins.card-surface;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  height: 100%;
+  animation: card-enter var(--duration-slow) var(--ease-out) both;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+
+  @include mixins.focus-ring;
+
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+    transform: translateY(-2px);
+  }
+}
+
+.resource-card__badge {
+  align-self: flex-start;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.resource-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-text);
+}
+
+.resource-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-top: auto;
+}
+
+.resource-card__meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+
+  dt {
+    color: var(--color-text-faint);
+  }
+
+  dd {
+    color: var(--color-text-muted);
+    text-align: right;
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@include mixins.reduced-motion {
+  .resource-card {
+    animation: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}

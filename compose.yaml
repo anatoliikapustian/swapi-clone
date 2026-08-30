@@ -9,6 +9,26 @@ services:
       - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
+  backend:
+    build:
+      context: ./backend
+    image: swapi-clone-backend:latest
+    environment:
+      - 'DB_URL=jdbc:postgresql://postgres:5432/swapi-clone'
+      - 'DB_USERNAME=root'
+      - 'DB_PASSWORD=root'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+  frontend:
+    build:
+      context: ./frontend
+    image: swapi-clone-frontend:latest
+    ports:
+      - '4200:80'
+    depends_on:
+      - backend
 volumes:
   # Declare the named volume here
   pgdata:

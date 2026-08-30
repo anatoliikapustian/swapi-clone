@@ -1,0 +1,54 @@
+<div class="relation-picker">
+  <span class="relation-picker__label">{{ label() }}</span>
+
+  @if (selected().length > 0) {
+    <ul class="relation-picker__chips">
+      @for (option of selected(); track option.id) {
+        <li>
+          <span class="relation-picker__chip">
+            {{ option.label }}
+            <button
+              type="button"
+              class="relation-picker__chip-remove"
+              [attr.aria-label]="'Remove ' + option.label"
+              (click)="remove(option.id)"
+            >
+              ×
+            </button>
+          </span>
+        </li>
+      }
+    </ul>
+  }
+
+  <div class="relation-picker__combo">
+    <input
+      type="text"
+      class="relation-picker__input"
+      [placeholder]="'Search ' + catalog().label + '…'"
+      [value]="draft()"
+      (input)="onInput($event)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+    />
+
+    @if (open()) {
+      <ul class="relation-picker__results">
+        @if (searchState.isLoading()) {
+          <li class="relation-picker__hint">Searching…</li>
+        } @else if (results().length === 0) {
+          <li class="relation-picker__hint">No matches</li>
+        } @else {
+          @for (option of results(); track option.id) {
+            <li>
+              <button type="button" class="relation-picker__option" (mousedown)="select(option)">
+                <span>{{ option.label }}</span>
+                <span class="relation-picker__option-id">#{{ option.id }}</span>
+              </button>
+            </li>
+          }
+        }
+      </ul>
+    }
+  </div>
+</div>

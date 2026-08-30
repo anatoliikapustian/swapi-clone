@@ -1,0 +1,20 @@
+<a class="resource-card" [routerLink]="link()" [style.animation-delay.ms]="staggerIndex() * 40">
+  <span class="resource-card__badge">{{ catalog().singularLabel }}</span>
+  <h3 class="resource-card__title" [style.view-transition-name]="transitionName()">
+    {{ fieldValue(catalog().titleField) | value }}
+  </h3>
+  <dl class="resource-card__meta">
+    @for (field of catalog().subtitleFields; track field.key) {
+      <div class="resource-card__meta-row">
+        <dt>{{ field.label }}</dt>
+        <dd>
+          @if (field.numeric) {
+            {{ fieldValue(field.key) | numberFormat | value }}
+          } @else {
+            {{ fieldValue(field.key) | value }}
+          }
+        </dd>
+      </div>
+    }
+  </dl>
+</a>

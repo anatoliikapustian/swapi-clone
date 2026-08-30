@@ -1,0 +1,76 @@
+@use '../../../styles/mixins';
+
+.list-page__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.list-page__heading {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.list-page__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+}
+
+.list-page__count {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.list-page__add {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-5);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+
+  @include mixins.focus-ring;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+.list-page__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.list-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  transition: opacity var(--duration-base) var(--ease-out);
+
+  &--loading {
+    opacity: 0.5;
+  }
+}
+
+@include mixins.reduced-motion {
+  .list-page__grid {
+    transition: none;
+  }
+}

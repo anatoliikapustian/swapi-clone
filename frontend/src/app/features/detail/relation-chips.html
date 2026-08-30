@@ -1,0 +1,21 @@
+@for (relation of relationFields(); track relation.key) {
+  @let resolved = resolve(relation);
+  @if (resolved.length > 0) {
+    <section class="relation-group">
+      <h2 class="relation-group__title">{{ relation.label }}</h2>
+      <ul class="relation-group__chips">
+        @for (entry of resolved; track entry.url) {
+          <li>
+            @defer (on viewport) {
+              <app-relation-chip [url]="entry.url" [resource]="entry.parsed.resource" [id]="entry.parsed.id" />
+            } @placeholder {
+              <a class="relation-chip relation-chip--placeholder" [routerLink]="['/', entry.parsed.resource, entry.parsed.id]">
+                #{{ entry.parsed.id }}
+              </a>
+            }
+          </li>
+        }
+      </ul>
+    </section>
+  }
+}

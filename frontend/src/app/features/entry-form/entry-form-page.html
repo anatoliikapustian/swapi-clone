@@ -1,0 +1,119 @@
+<a
+  class="entry-form-page__back"
+  [routerLink]="isEdit() ? ['/', resource(), idNum()] : ['/', resource()]"
+>
+  ← Back to {{ isEdit() ? catalog().singularLabel : catalog().label }}
+</a>
+
+@if (isEdit() && isNotFound()) {
+  <app-empty-state
+    title="Not found"
+    [detail]="'No ' + catalog().singularLabel.toLowerCase() + ' exists with id ' + id() + '.'"
+  />
+} @else if (isEdit() && loadProblem()) {
+  <app-error-state [problem]="loadProblem()" (retry)="itemState.reload()" />
+} @else if (isEdit() && itemState.isLoading() && !itemState.hasValue()) {
+  <div class="entry-form-page__skeleton" aria-busy="true" aria-label="Loading"></div>
+} @else {
+  <form class="entry-form" (ngSubmit)="submit()" novalidate>
+    <header class="entry-form-page__header">
+      <span class="entry-form-page__badge">{{ catalog().singularLabel }}</span>
+      <h1 class="entry-form-page__title">
+        {{ isEdit() ? 'Edit' : 'Add' }} {{ catalog().singularLabel.toLowerCase() }}
+      </h1>
+    </header>
+
+    @if (submitError()) {
+      <app-error-state [problem]="submitError()" (retry)="submit()" />
+    }
+
+    <div class="entry-form__fields">
+      @for (field of catalog().formFields; track field.key) {
+        <div class="entry-form__field" [class.entry-form__field--wide]="field.type === 'textarea'">
+          <label class="entry-form__label" [attr.for]="field.key">
+            {{ field.label }}
+            @if (field.required) {
+              <span class="entry-form__required" aria-hidden="true">*</span>
+            }
+          </label>
+
+          @switch (field.type) {
+            @case ('textarea') {
+              <textarea
+                [id]="field.key"
+                class="entry-form__control entry-form__control--textarea"
+                rows="6"
+                [name]="field.key"
+                [ngModel]="formModel()[field.key]"
+                (ngModelChange)="setField(field.key, $event)"
+              ></textarea>
+            }
+            @case ('number') {
+              <input
+                [id]="field.key"
+                type="number"
+                class="entry-form__control"
+                [name]="field.key"
+                [ngModel]="formModel()[field.key]"
+                (ngModelChange)="setField(field.key, $event)"
+              />
+            }
+            @case ('date') {
+              <input
+                [id]="field.key"
+                type="date"
+                class="entry-form__control"
+                [name]="field.key"
+                [ngModel]="formModel()[field.key]"
+                (ngModelChange)="setField(field.key, $event)"
+              />
+            }
+            @default {
+              <input
+                [id]="field.key"
+                type="text"
+                class="entry-form__control"
+                [name]="field.key"
+                [required]="!!field.required"
+                [ngModel]="formModel()[field.key]"
+                (ngModelChange)="setField(field.key, $event)"
+              />
+            }
+          }
+        </div>
+      }
+    </div>
+
+    @if (writableRelations().length > 0) {
+      <div class="entry-form__relations">
+        @for (relation of writableRelations(); track relation.key) {
+          <app-relation-picker
+            [target]="relation.target"
+            [label]="relation.label"
+            [multi]="relation.multi"
+            [selected]="relationModel()[relation.key] ?? []"
+            (selectedChange)="onRelationChange(relation.key, $event)"
+          />
+        }
+      </div>
+    }
+
+    <div class="entry-form__actions">
+      <a
+        class="entry-form__cancel"
+        [routerLink]="isEdit() ? ['/', resource(), idNum()] : ['/', resource()]"
+      >
+        Cancel
+      </a>
+      <button type="submit" class="entry-form__submit" [disabled]="!isValid() || submitting()">
+        {{
+          submitting()
+            ? 'Saving…'
+            : isEdit()
+              ? 'Save changes'
+              : 'Create ' + catalog().singularLabel.toLowerCase()
+        }}
+      </button>
+    </div>
+  </form>
+}

@@ -1,0 +1,29 @@
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="shell-header">
+  <div class="shell-header__bar">
+    <a class="brand" routerLink="/films">
+      <svg class="brand__mark" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
+        <circle cx="12" cy="12" r="2.25" fill="currentColor" />
+      </svg>
+      <span class="brand__text">SWAPI<span class="brand__accent">.</span>console</span>
+    </a>
+
+    <nav class="primary-nav" aria-label="Resources">
+      @for (resource of resources; track resource.key) {
+        <a
+          class="primary-nav__link"
+          [routerLink]="['/', resource.key]"
+          routerLinkActive="primary-nav__link--active"
+        >
+          {{ resource.label }}
+        </a>
+      }
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <router-outlet />
+</main>

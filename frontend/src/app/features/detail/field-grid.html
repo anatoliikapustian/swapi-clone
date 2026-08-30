@@ -1,0 +1,19 @@
+@for (section of sections(); track section.title) {
+  <section class="field-grid__section">
+    <h2 class="field-grid__section-title">{{ section.title }}</h2>
+    <dl class="field-grid__list">
+      @for (field of section.fields; track field.key) {
+        <div class="field-grid__row">
+          <dt>{{ field.label }}</dt>
+          <dd>
+            @if (field.numeric) {
+              {{ fieldValue(field.key) | numberFormat | value }}
+            } @else {
+              {{ fieldValue(field.key) | value }}
+            }
+          </dd>
+        </div>
+      }
+    </dl>
+  </section>
+}

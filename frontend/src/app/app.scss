@@ -1,0 +1,98 @@
+@use '../styles/mixins';
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: top var(--duration-fast) var(--ease-out);
+
+  &:focus-visible {
+    top: var(--space-4);
+  }
+}
+
+.shell-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--color-ground) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.shell-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: var(--space-4) var(--space-6);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  letter-spacing: 0.01em;
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+
+  @include mixins.focus-ring;
+}
+
+.brand__mark {
+  width: 22px;
+  height: 22px;
+  color: var(--color-accent);
+}
+
+.brand__accent {
+  color: var(--color-accent);
+}
+
+.primary-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  overflow-x: auto;
+}
+
+.primary-nav__link {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background-color var(--duration-fast) var(--ease-out);
+
+  @include mixins.focus-ring;
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+  }
+
+  &--active {
+    color: var(--color-accent-ink);
+    background: var(--color-accent);
+    font-weight: 600;
+  }
+}
+
+main {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: var(--space-6);
+  min-height: calc(100vh - 72px);
+}

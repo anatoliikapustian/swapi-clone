@@ -1,0 +1,61 @@
+<header class="list-page__header">
+  <div class="list-page__heading">
+    <h1 class="list-page__title">{{ catalog().label }}</h1>
+    <p class="list-page__count" aria-live="polite">
+      @if (!resourceState.isLoading() && !resourceState.error()) {
+        {{ totalElements() }} {{ totalElements() === 1 ? catalog().singularLabel : catalog().label }}
+        @if (searchTerm()) {
+          matching &ldquo;{{ searchTerm() }}&rdquo;
+        }
+      }
+    </p>
+  </div>
+  <a class="list-page__add" routerLink="/{{ resource() }}/new">+ Add {{ catalog().singularLabel.toLowerCase() }}</a>
+</header>
+
+<div class="list-page__controls">
+  <app-search-field [value]="searchTerm()" [label]="catalog().label" (searchChange)="onSearchChange($event)" />
+  <app-sort-select
+    [options]="catalog().sortOptions"
+    [field]="sortField()"
+    [direction]="sortDirection()"
+    (sortChange)="onSortChange($event)"
+  />
+</div>
+
+@if (resourceState.error()) {
+  <app-error-state [problem]="problem()" (retry)="retry()" />
+} @else if (resourceState.isLoading() && !resourceState.hasValue()) {
+  <div class="list-page__grid" aria-busy="true">
+    @for (placeholder of skeletonPlaceholders(); track placeholder) {
+      <app-skeleton-card />
+    }
+  </div>
+} @else if (items().length === 0) {
+  <app-empty-state
+    title="No results"
+    [detail]="
+      searchTerm()
+        ? 'No ' + catalog().label + ' match “' + searchTerm() + '”.'
+        : 'This collection is empty.'
+    "
+  />
+} @else {
+  <div
+    class="list-page__grid"
+    [class.list-page__grid--loading]="resourceState.isLoading()"
+    [attr.aria-busy]="resourceState.isLoading()"
+  >
+    @for (item of items(); track item.id; let i = $index) {
+      <app-resource-card [item]="item" [catalog]="catalog()" [index]="i" />
+    }
+  </div>
+
+  <app-paginator
+    [page]="pageNum()"
+    [totalPages]="totalPages()"
+    [size]="sizeNum()"
+    (pageChange)="onPageChange($event)"
+    (sizeChange)="onSizeChange($event)"
+  />
+}

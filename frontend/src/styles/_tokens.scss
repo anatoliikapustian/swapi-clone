@@ -1,0 +1,103 @@
+// Design tokens — Imperial data console. Dark-first; a full light set follows.
+:root {
+  // ---- Palette (dark, default) --------------------------------------------
+  --color-ground: #0a0c10;
+  --color-surface-1: #12151b;
+  --color-surface-2: #1a1e26;
+  --color-surface-3: #232833;
+  --color-border: #2c323f;
+  --color-border-strong: #3d4453;
+
+  --color-text: #e8eaed;
+  --color-text-muted: #9aa2b1;
+  --color-text-faint: #6b7280;
+
+  --color-accent: #f5c518;
+  --color-accent-strong: #ffd84d;
+  --color-accent-ink: #1a1400; // text placed on top of accent-filled surfaces
+
+  --color-link: #5ecbe8;
+  --color-link-hover: #8adcf2;
+
+  --color-danger: #f36a6a;
+  --color-danger-surface: #2a1414;
+  --color-danger-border: #5a2626;
+
+  --color-focus-ring: var(--color-accent);
+
+  --shadow-ambient: 0 0 0 1px var(--color-border);
+
+  // ---- Spacing (4px base) -------------------------------------------------
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  // ---- Radii ----------------------------------------------------------------
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  // ---- Type -----------------------------------------------------------------
+  --font-display:
+    'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+
+  --text-xs: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
+  --text-sm: clamp(0.82rem, 0.79rem + 0.15vw, 0.9rem);
+  --text-base: clamp(0.95rem, 0.92rem + 0.15vw, 1rem);
+  --text-lg: clamp(1.1rem, 1.03rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.75vw, 3.5rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+
+  // ---- Motion -----------------------------------------------------------------
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-ground: #f5f6f8;
+    --color-surface-1: #ffffff;
+    --color-surface-2: #eef0f3;
+    --color-surface-3: #e3e6eb;
+    --color-border: #d7dbe2;
+    --color-border-strong: #c1c7d1;
+
+    --color-text: #14161a;
+    --color-text-muted: #4b515c;
+    --color-text-faint: #767c87;
+
+    --color-accent: #a9750a;
+    --color-accent-strong: #8a5f06;
+    --color-accent-ink: #fffaf0;
+
+    --color-link: #0c6f91;
+    --color-link-hover: #095a76;
+
+    --color-danger: #b3261e;
+    --color-danger-surface: #fbeaea;
+    --color-danger-border: #f0c4c1;
+
+    color-scheme: light;
+  }
+}
